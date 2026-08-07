@@ -6,7 +6,6 @@
 
 import { ChatBarButton, ChatBarButtonFactory } from "@api/ChatButtons";
 import { definePluginSettings } from "@api/Settings";
-import { Devs } from "@utils/constants";
 import definePlugin, { IconComponent, OptionType } from "@utils/types";
 
 import { vim } from "./core/vim";
