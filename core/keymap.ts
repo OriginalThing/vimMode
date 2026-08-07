@@ -62,7 +62,8 @@ export const keyMap = {
     i: new Action(() => VimStore.setMode(Mode.INSERT)),
 
     go: new Action(() => VimActions.openQuickSwitcher()),
-    "/": new Action(() => VimActions.openFind()),
+    "/": new Action(() => VimActions.openFind(false)),
+    "?": new Action(() => VimActions.openFind(true)),
 
     y: new Operator((ctx, a, f) => ctx.yank(a, f)),
     p: new Action(ctx => ctx.paste()),
