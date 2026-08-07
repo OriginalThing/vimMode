@@ -41,9 +41,10 @@ export const VimActions = {
         });
     },
 
-    openFind() {
+
+    openFind(prefillCurrentChannel: boolean) {
         ComponentDispatch.dispatch("FOCUS_SEARCH", {
-            prefillCurrentChannel: false
+            prefillCurrentChannel: prefillCurrentChannel
         });
     }
 };
