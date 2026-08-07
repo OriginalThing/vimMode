@@ -6,14 +6,12 @@
 
 import { ChatBarButton, ChatBarButtonFactory } from "@api/ChatButtons";
 import { definePluginSettings } from "@api/Settings";
-import { Devs } from "@utils/constants";
 import definePlugin, { IconComponent, OptionType } from "@utils/types";
 
 import { vim } from "./core/vim";
 import { VimStatus } from "./VimStatus";
 
 export let currentEditor: any = null;
-export let currentSearchBar: any = null;
 
 export const settings = definePluginSettings({
     vimChatScroll: {
@@ -99,15 +97,12 @@ export default definePlugin({
     captureEditor(editor) {
         currentEditor = editor;
     },
-    captureSearchBar(instance) {
-        currentSearchBar = instance;
-    },
 
     patches: [
         {
             find: "ChannelTextAreaFormComponent",
             replacement: {
-                match: /(?<=\i\.jsx\)\()(\i),\{/,
+                match: /(?<=render\(\)[\s\S]*?)(?<=\i\.jsx\)\()(\i\.\i),\{/,
                 replace: "$self.TextAreaWrapper,{VencordOriginal:$1,"
             }
         },
@@ -115,8 +110,8 @@ export default definePlugin({
         {
             find: "ChannelTextAreaFormComponent",
             replacement: {
-                match: /"handleInputKeyDown",\s*\(([^)]*)\)\s*=>\s*\{/,
-                replace: "\"handleInputKeyDown\", ($1) => { $self.onKeyDown($1);"
+                match: /handleInputKeyDown\s*=\s*\(([^)]*)\)\s*=>\s*\{/,
+                replace: "handleInputKeyDown = ($1) => { $self.onKeyDown($1);"
             }
         },
         {
@@ -124,13 +119,6 @@ export default definePlugin({
             replacement: {
                 match: /setEditorRef:\s*([a-zA-Z0-9_$]+)\s*=>\s*this\.editorRef\s*=\s*\1,/,
                 replace: "setEditorRef: $1 => { this.editorRef = $1; $self.captureEditor($1); },"
-            }
-        },
-        {
-            find: "handleFocusSearch",
-            replacement: {
-                match: /componentDidMount\(\)\s*\{/,
-                replace: "componentDidMount(){ $self.captureSearchBar(this);"
             }
         }
     ],

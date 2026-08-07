@@ -4,9 +4,7 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
-import { FluxDispatcher } from "@webpack/common";
-
-import { currentSearchBar } from "..";
+import { ComponentDispatch, FluxDispatcher } from "@webpack/common";
 
 function getScroller(): HTMLElement | null {
     return (
@@ -43,8 +41,10 @@ export const VimActions = {
         });
     },
 
+
     openFind(prefillCurrentChannel: boolean) {
-        if (!currentSearchBar) return;
-        currentSearchBar.handleFocusSearch({ prefillCurrentChannel: prefillCurrentChannel });
+        ComponentDispatch.dispatch("FOCUS_SEARCH", {
+            prefillCurrentChannel: prefillCurrentChannel
+        });
     }
 };
