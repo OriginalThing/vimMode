@@ -43,8 +43,8 @@ export const VimActions = {
         });
     },
 
-    openFind() {
+    openFind(prefillCurrentChannel: boolean) {
         if (!currentSearchBar) return;
-        currentSearchBar.handleFocusSearch({ prefillCurrentChannel: false });
+        currentSearchBar.handleFocusSearch({ prefillCurrentChannel: prefillCurrentChannel });
     }
 };
