@@ -106,7 +106,7 @@ export default definePlugin({
         {
             find: "ChannelTextAreaFormComponent",
             replacement: {
-                match: /(?<=\i\.jsx\)\()(\i),\{/,
+                match: /(?<=render\(\)[\s\S]*?)(?<=\i\.jsx\)\()(\i\.\i),\{/,
                 replace: "$self.TextAreaWrapper,{VencordOriginal:$1,"
             }
         },
@@ -114,8 +114,8 @@ export default definePlugin({
         {
             find: "ChannelTextAreaFormComponent",
             replacement: {
-                match: /"handleInputKeyDown",\s*\(([^)]*)\)\s*=>\s*\{/,
-                replace: "\"handleInputKeyDown\", ($1) => { $self.onKeyDown($1);"
+                match: /handleInputKeyDown\s*=\s*\(([^)]*)\)\s*=>\s*\{/,
+                replace: "handleInputKeyDown = ($1) => { $self.onKeyDown($1);"
             }
         },
         {
